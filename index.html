@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mayank — Sitelytc Digital Media</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0A1420;
+    --ink-2:#0E1B2B;
+    --panel:#101F31;
+    --line: rgba(232,236,239,0.12);
+    --line-strong: rgba(232,236,239,0.22);
+    --off-white:#E8ECEF;
+    --muted:#8FA1B3;
+    --cyan:#28D9C4;
+    --amber:#C9A227;
+    --radius:18px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{
+    background:
+      radial-gradient(600px 400px at 15% -5%, rgba(40,217,196,0.10), transparent 60%),
+      radial-gradient(500px 400px at 110% 10%, rgba(201,162,39,0.08), transparent 55%),
+      var(--ink);
+    color:var(--off-white);
+    font-family:'Inter', sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:28px 16px;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .card{
+    position:relative;
+    width:100%;
+    max-width:400px;
+    background:
+      repeating-linear-gradient(180deg, rgba(255,255,255,0.014) 0px, rgba(255,255,255,0.014) 1px, transparent 1px, transparent 3px),
+      linear-gradient(180deg, var(--panel), var(--ink-2));
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.02) inset;
+    opacity:0;
+    transform:translateY(14px);
+    animation: rise 0.7s cubic-bezier(.16,.8,.3,1) forwards;
+  }
+  @keyframes rise{ to{ opacity:1; transform:translateY(0);} }
+  @media (prefers-reduced-motion: reduce){
+    .card{ animation:none; opacity:1; transform:none; }
+  }
+
+  .seal{
+    position:absolute; top:18px; right:18px; width:34px; height:34px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .seal svg{ width:100%; height:100%; }
+  .seal path{ fill:none; stroke:var(--amber); stroke-width:1.3; opacity:0.85; }
+  .seal circle{ fill:var(--amber); opacity:0.9; }
+
+  .top{
+    padding:24px 24px 18px;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--cyan);
+    display:flex; align-items:center; gap:7px;
+    margin-bottom:16px;
+  }
+  .eyebrow .dot{
+    width:6px; height:6px; border-radius:50%;
+    background:var(--cyan);
+    box-shadow:0 0 8px var(--cyan);
+    animation:pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+
+  .name{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:26px;
+    line-height:1.15;
+    letter-spacing:-0.01em;
+  }
+  .title{
+    margin-top:6px;
+    font-size:13.5px;
+    color:var(--muted);
+    font-weight:500;
+  }
+  .meta{
+    margin-top:14px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.04em;
+    color:rgba(143,161,179,0.7);
+  }
+
+  .pillars{
+    padding:18px 24px;
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    border-bottom:1px solid var(--line);
+  }
+  .pillar{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:9px 0;
+  }
+  .pillar .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.05em;
+    color:var(--ink);
+    background:var(--cyan);
+    width:26px; height:26px;
+    border-radius:7px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+    font-weight:500;
+  }
+  .pillar .label{
+    font-size:13.5px;
+    color:var(--off-white);
+    font-weight:500;
+  }
+  .pillar .sub{
+    font-size:11.5px;
+    color:var(--muted);
+    margin-top:1px;
+  }
+
+  .links{
+    padding:16px 24px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    border-bottom:1px solid var(--line);
+  }
+  .link-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    text-decoration:none;
+    padding:11px 14px;
+    border:1px solid var(--line-strong);
+    border-radius:11px;
+    background:rgba(255,255,255,0.015);
+    transition:border-color 0.2s ease, background 0.2s ease;
+  }
+  .link-row:hover, .link-row:focus-visible{
+    border-color:var(--cyan);
+    background:rgba(40,217,196,0.06);
+  }
+  .link-row .l-name{
+    font-size:13px; color:var(--off-white); font-weight:500;
+  }
+  .link-row .l-url{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px; color:var(--cyan);
+  }
+
+  .cta-wrap{ padding:20px 24px 26px; }
+  .cta{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:15px 18px;
+    border-radius:12px;
+    border:none;
+    background:linear-gradient(180deg, #2FE4CC, #1FBFA9);
+    color:#062420;
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:15px;
+    letter-spacing:-0.01em;
+    cursor:pointer;
+    box-shadow:0 12px 28px -10px rgba(40,217,196,0.45);
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .cta:hover{ transform:translateY(-1px); box-shadow:0 16px 34px -10px rgba(40,217,196,0.55); }
+  .cta:active{ transform:translateY(0px) scale(0.99); }
+  .cta:focus-visible{ outline:2px solid var(--cyan); outline-offset:3px; }
+  .cta svg{ width:18px; height:18px; flex-shrink:0; }
+
+  .hint{
+    text-align:center;
+    margin-top:12px;
+    font-size:11px;
+    color:var(--muted);
+  }
+
+  .footer{
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size:9.5px;
+    letter-spacing:0.08em;
+    color:rgba(143,161,179,0.5);
+    padding:14px 20px 4px;
+    text-transform:uppercase;
+  }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="seal" aria-hidden="true">
+      <svg viewBox="0 0 40 40">
+        <path d="M20 3 L34 10 V21 C34 29 28 34.5 20 37 C12 34.5 6 29 6 21 V10 Z"/>
+        <circle cx="20" cy="19" r="2.2"/>
+      </svg>
+    </div>
+
+    <div class="top">
+      <div class="eyebrow"><span class="dot"></span> Verified Contact</div>
+      <div class="name">Mayank</div>
+      <div class="title">Founder &amp; CEO, Sitelytc Digital Media</div>
+      <div class="meta">ISSUED · DELHI BUSINESS MELA · AUG 2026</div>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar">
+        <div class="tag">WD</div>
+        <div>
+          <div class="label">Web Design &amp; Development</div>
+          <div class="sub">Next.js builds, end to end</div>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="tag">AI</div>
+        <div>
+          <div class="label">AI Automation</div>
+          <div class="sub">Powered by Kritvia AIBOS</div>
+        </div>
+      </div>
+      <div class="pillar">
+        <div class="tag">SEC</div>
+        <div>
+          <div class="label">Cybersecurity</div>
+          <div class="sub">VAPT &amp; compliance readiness</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="links">
+      <a class="link-row" href="https://sitelytc.com" target="_blank" rel="noopener">
+        <span class="l-name">Sitelytc Digital Media</span>
+        <span class="l-url">sitelytc.com</span>
+      </a>
+      <a class="link-row" href="https://kritvia.sitelytc.com/" target="_blank" rel="noopener">
+        <span class="l-name">Kritvia AIBOS</span>
+        <span class="l-url">kritvia.sitelytc.com</span>
+      </a>
+    </div>
+
+    <div class="cta-wrap">
+      <button class="cta" id="waBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2.05 22l5.25-1.38a9.86 9.86 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.14c-.24.68-1.4 1.33-1.93 1.4-.5.07-1.09.1-1.75-.11-.4-.13-.92-.3-1.58-.59-2.78-1.2-4.6-4-4.74-4.19-.14-.19-1.13-1.5-1.13-2.86 0-1.36.71-2.02.97-2.3.25-.27.55-.34.73-.34h.53c.17 0 .4-.06.62.48.24.57.8 1.98.87 2.13.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.48-.14.14-.28.29-.12.57.16.28.71 1.19 1.53 1.93 1.05.95 1.94 1.24 2.22 1.38.28.14.44.12.6-.07.16-.19.68-.8.86-1.07.18-.28.36-.23.6-.14.24.09 1.55.75 1.82.88.27.14.45.2.51.32.07.12.07.66-.17 1.32z"/></svg>
+        Send my details on WhatsApp
+      </button>
+      <div class="hint">Opens WhatsApp with a message already filled in</div>
+    </div>
+
+    <div class="footer">Sitelytc Digital Media · New Delhi</div>
+  </div>
+
+<script>
+  document.getElementById('waBtn').addEventListener('click', function(){
+    var phone = "917291849403";
+    var message = "Hey, we met in Delhi business mela! Here's my details:\n" +
+      "Mayank, Founder & CEO, Sitelytc Digital Media\n" +
+      "Website: https://sitelytc.com\n" +
+      "Kritvia AIBOS: https://kritvia.sitelytc.com/";
+    var url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+    window.open(url, "_blank");
+  });
+</script>
+
+</body>
+</html>
