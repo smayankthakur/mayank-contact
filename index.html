@@ -85,6 +85,100 @@
       }
     }
 
+    /* ---- light theme override ---- */
+    body.light-theme {
+      --ink: #EEF2F5;
+      --ink-2: #FFFFFF;
+      --panel: #FFFFFF;
+      --line: rgba(11, 22, 32, 0.10);
+      --line-strong: rgba(11, 22, 32, 0.16);
+      --off-white: #0B1620;
+      --muted: #5C6E7E;
+    }
+
+    body.light-theme .qr-wrap {
+      box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.18);
+    }
+
+    body.light-theme .toast {
+      background: #fff;
+      color: #0B1620;
+    }
+
+    /* ---- ripple ---- */
+    .rippleable {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ripple-el {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      background: rgba(255, 255, 255, 0.5);
+      transform: scale(0);
+      animation: rippleAnim 0.6s ease-out forwards;
+    }
+
+    body.light-theme .ripple-el {
+      background: rgba(8, 17, 28, 0.18);
+    }
+
+    @keyframes rippleAnim {
+      to {
+        transform: scale(2.6);
+        opacity: 0;
+      }
+    }
+
+    /* ---- image skeleton ---- */
+    .skeleton {
+      background: linear-gradient(100deg, rgba(255, 255, 255, 0.03) 30%, rgba(255, 255, 255, 0.09) 50%, rgba(255, 255, 255, 0.03) 70%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 200% 0;
+      }
+
+      100% {
+        background-position: -200% 0;
+      }
+    }
+
+    /* ---- print ---- */
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+
+      .external-flip,
+      .flip-btn,
+      .actions,
+      .toast,
+      #themeBtnFront,
+      #themeBtnBack {
+        display: none !important;
+      }
+
+      .tilt {
+        transform: none !important;
+        opacity: 1 !important;
+      }
+
+      .face-back {
+        display: none !important;
+      }
+
+      .face {
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+    }
+
     .stage-wrap {
       width: 100%;
       max-width: 420px;
@@ -287,6 +381,21 @@
       margin-top: 3px;
       font-size: 12px;
       color: var(--muted);
+    }
+
+    .meet-tag {
+      margin-top: 12px;
+      padding: 9px 12px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 10px;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .meet-tag b {
+      color: var(--cyan);
+      font-weight: 600;
     }
 
     /* ---- stats ---- */
@@ -587,6 +696,30 @@
       border: 1px solid var(--line);
       border-radius: 6px;
       padding: 4px 8px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .badge:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    .referral {
+      margin: 14px 22px 0;
+      padding: 11px 14px;
+      border-radius: 11px;
+      border: 1px solid rgba(201, 162, 39, 0.35);
+      background: rgba(201, 162, 39, 0.07);
+      font-size: 11px;
+      color: var(--amber);
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .referral b {
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.04em;
     }
 
     .footer {
@@ -632,6 +765,14 @@
 
     .external-flip.spin svg {
       transform: rotate(180deg);
+    }
+
+    .install-btn {
+      display: none;
+    }
+
+    .install-btn.show {
+      display: flex;
     }
 
     /* ---- back face ---- */
@@ -743,13 +884,64 @@
       height: 44px;
       border: 1px solid var(--line-strong);
       border-radius: 9px;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.92);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .client-logo:hover {
+      transform: translateY(-2px);
+      border-color: var(--cyan);
     }
 
     .client-logo img {
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
+    }
+
+    .testimonials {
+      margin-top: 20px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .testimonial {
+      text-align: left;
+      padding: 12px 14px;
+      border: 1px solid var(--line-strong);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.015);
+    }
+
+    .testimonial p {
+      font-size: 11.5px;
+      color: var(--off-white);
+      line-height: 1.55;
+      font-style: italic;
+    }
+
+    .testimonial span {
+      display: block;
+      margin-top: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .testimonials-note {
+      margin-top: 6px;
+      font-size: 9.5px;
+      color: var(--muted);
+      opacity: 0.7;
+    }
+
+    .save-qr-wrap {
+      margin-top: 22px;
     }
 
     /* ---- toast ---- */
@@ -774,6 +966,10 @@
       align-items: center;
       gap: 8px;
       box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.6);
+      max-width: 86vw;
+      white-space: normal;
+      text-align: left;
+      line-height: 1.4;
     }
 
     .toast.show {
@@ -805,7 +1001,14 @@
             </div>
             <div class="brand-right">
               <div class="brand-eyebrow"><span class="dot"></span> Verified</div>
-              <button class="flip-btn" id="flipBtnFront" type="button" aria-label="Flip card">
+              <button class="flip-btn rippleable" id="themeBtnFront" type="button" aria-label="Toggle theme">
+                <svg id="themeIconFront" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round">
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19" />
+                </svg>
+              </button>
+              <button class="flip-btn rippleable" id="flipBtnFront" type="button" aria-label="Flip card">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                   <path d="M17 2.1l4 4-4 4" />
                   <path d="M3 12.9V11a4 4 0 0 1 4-4h14" />
@@ -818,7 +1021,8 @@
 
           <div class="identity">
             <div class="avatar">
-              <img src="https://mayank.sitelytc.com/_next/image?url=%2Fpic2.png&w=2048&q=75" alt="Mayank Thakur">
+              <img class="skeleton" src="https://mayank.sitelytc.com/_next/image?url=%2Fpic2.png&w=2048&q=75"
+                alt="Mayank Thakur">
             </div>
             <div class="id-text">
               <div class="name">Mayank Thakur</div>
@@ -830,7 +1034,13 @@
           <div class="tagline">
             <div class="t1">Security-native digital studio.</div>
             <div class="t2">Precision Digital Architecture.</div>
+            <div class="meet-tag"><b>Looking to connect:</b> e-commerce &amp; D2C founders, SaaS teams, retail brands.
+            </div>
           </div>
+
+          <div class="referral"><b>MELA26</b> — show this card for a free security &amp; performance audit of your
+            current site.</div>
+
 
           <div class="stats">
             <div class="stat">
@@ -984,20 +1194,20 @@
           </div>
 
           <div class="actions">
-            <button class="btn btn-primary" id="waBtn" type="button">
+            <button class="btn btn-primary rippleable" id="waBtn" type="button">
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path
                   d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2.05 22l5.25-1.38a9.86 9.86 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.14c-.24.68-1.4 1.33-1.93 1.4-.5.07-1.09.1-1.75-.11-.4-.13-.92-.3-1.58-.59-2.78-1.2-4.6-4-4.74-4.19-.14-.19-1.13-1.5-1.13-2.86 0-1.36.71-2.02.97-2.3.25-.27.55-.34.73-.34h.53c.17 0 .4-.06.62.48.24.57.8 1.98.87 2.13.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.48-.14.14-.28.29-.12.57.16.28.71 1.19 1.53 1.93 1.05.95 1.94 1.24 2.22 1.38.28.14.44.12.6-.07.16-.19.68-.8.86-1.07.18-.28.36-.23.6-.14.24.09 1.55.75 1.82.88.27.14.45.2.51.32.07.12.07.66-.17 1.32z" />
               </svg>
-              Send my details on WhatsApp
+              <span class="btn-label">Send my details on WhatsApp</span>
             </button>
-            <button class="btn btn-secondary" id="vcardBtn" type="button">
+            <button class="btn btn-secondary rippleable" id="vcardBtn" type="button">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                 <path d="M12 3v13m0 0l-4-4m4 4l4-4M4 18v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2" />
               </svg>
-              Save to Contacts
+              <span class="btn-label">Save to Contacts</span>
             </button>
-            <button class="btn btn-secondary" id="qrBtnFront" type="button">
+            <button class="btn btn-secondary rippleable" id="qrBtnFront" type="button">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
                 <rect x="3" y="3" width="7" height="7" rx="1" />
                 <rect x="14" y="3" width="7" height="7" rx="1" />
@@ -1006,13 +1216,28 @@
               </svg>
               View QR Code
             </button>
+            <button class="btn btn-secondary rippleable" id="shareBtn" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="18" cy="5" r="3" />
+                <circle cx="6" cy="12" r="3" />
+                <circle cx="18" cy="19" r="3" />
+                <path d="M8.6 10.5l6.8-3.8M8.6 13.5l6.8 3.8" />
+              </svg>
+              Share this Card
+            </button>
           </div>
 
           <div class="badges">
-            <span class="badge">ISO 9001</span>
-            <span class="badge">OWASP-aligned</span>
-            <span class="badge">DPDPA 2023 ready</span>
-            <span class="badge">GDPR aligned</span>
+            <span class="badge"
+              data-info="Certified for consistent quality management across every client engagement.">ISO 9001</span>
+            <span class="badge"
+              data-info="Builds follow OWASP's top security practices to guard against common web vulnerabilities.">OWASP-aligned</span>
+            <span class="badge"
+              data-info="Data handling practices are built toward India's Digital Personal Data Protection Act, 2023.">DPDPA
+              2023 ready</span>
+            <span class="badge"
+              data-info="Privacy practices align with the EU's General Data Protection Regulation standards.">GDPR
+              aligned</span>
           </div>
 
           <div class="footer">Tap the flip icon for a scannable card ↗</div>
@@ -1024,14 +1249,23 @@
             <div class="brand-mark">
               <img src="https://www.sitelytc.com/_next/image?url=%2Flogo.webp&w=384&q=75" alt="Sitelytc logo">
             </div>
-            <button class="flip-btn" id="flipBtnBack" type="button" aria-label="Flip card">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <path d="M17 2.1l4 4-4 4" />
-                <path d="M3 12.9V11a4 4 0 0 1 4-4h14" />
-                <path d="M7 21.9l-4-4 4-4" />
-                <path d="M21 11.1V13a4 4 0 0 1-4 4H3" />
-              </svg>
-            </button>
+            <div class="brand-right">
+              <button class="flip-btn rippleable" id="themeBtnBack" type="button" aria-label="Toggle theme">
+                <svg id="themeIconBack" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round">
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19" />
+                </svg>
+              </button>
+              <button class="flip-btn rippleable" id="flipBtnBack" type="button" aria-label="Flip card">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M17 2.1l4 4-4 4" />
+                  <path d="M3 12.9V11a4 4 0 0 1 4-4h14" />
+                  <path d="M7 21.9l-4-4 4-4" />
+                  <path d="M21 11.1V13a4 4 0 0 1-4 4H3" />
+                </svg>
+              </button>
+            </div>
           </div>
 
           <div class="back-content">
@@ -1044,33 +1278,61 @@
             </div>
             <div class="qr-caption">Scan to visit sitelytc.com</div>
 
+            <div class="save-qr-wrap">
+              <div class="qr-wrap">
+                <img id="vcardQrImg" src="" alt="QR code to save contact">
+              </div>
+              <div class="qr-caption">Scan to save my contact directly</div>
+            </div>
+
             <div class="clients-label">Trusted by ambitious brands</div>
             <div class="clients-grid">
-              <div class="client-logo"><img
+              <div class="client-logo" data-stat="BabyDocShop — full store rebuild and checkout revamp."><img
+                  class="skeleton"
                   src="https://www.sitelytc.com/_next/image?url=%2FClient%2FBabyDoc_Shop_Logo.webp&w=256&q=75"
                   alt="BabyDocShop"></div>
-              <div class="client-logo"><img
+              <div class="client-logo" data-stat="Dealzook — deals platform built for speed at scale."><img
+                  class="skeleton"
                   src="https://www.sitelytc.com/_next/image?url=%2FClient%2FDealZook_logo.webp&w=256&q=75"
                   alt="Dealzook"></div>
-              <div class="client-logo"><img
+              <div class="client-logo" data-stat="PreVot Associates — professional services site &amp; brand presence.">
+                <img class="skeleton"
                   src="https://www.sitelytc.com/_next/image?url=%2FClient%2FPrevot_Associates_logo.webp&w=256&q=75"
                   alt="PreVot Associates"></div>
-              <div class="client-logo"><img
+              <div class="client-logo" data-stat="HairDoc — booking-ready site for a growing salon brand."><img
+                  class="skeleton"
                   src="https://www.sitelytc.com/_next/image?url=%2FClient%2FHairDoc_logo.webp&w=256&q=75" alt="HairDoc">
               </div>
-              <div class="client-logo"><img
+              <div class="client-logo" data-stat="M Digital Bay Area — digital presence for a US-based agency."><img
+                  class="skeleton"
                   src="https://www.sitelytc.com/_next/image?url=%2FClient%2Fmdigitalbayarea_logo.webp&w=256&q=75"
                   alt="M Digital Bay Area"></div>
-              <div class="client-logo"><img
+              <div class="client-logo" data-stat="Global Corporate Tour — travel booking platform, built end to end.">
+                <img class="skeleton"
                   src="https://www.sitelytc.com/_next/image?url=%2FClient%2FGlobal_corporate_tour_Logo.webp&w=256&q=75"
                   alt="Global Corporate Tour"></div>
-              <div class="client-logo"><img
+              <div class="client-logo" data-stat="Ozuna Tortilla Factory — e-commerce build for a food manufacturer.">
+                <img class="skeleton"
                   src="https://www.sitelytc.com/_next/image?url=%2FClient%2FOzuna_logo.webp&w=256&q=75"
                   alt="Ozuna Tortilla Factory"></div>
-              <div class="client-logo"><img src="https://curingbusy.com/images/logo.png" alt="CuringBusy"></div>
-              <div class="client-logo"><img src="https://kritvia.sitelytc.com/favicon.ico?favicon.dfc161a9.ico"
-                  alt="Kritvia"></div>
+              <div class="client-logo" data-stat="CuringBusy — product site and brand identity."><img class="skeleton"
+                  src="https://curingbusy.com/images/logo.png" alt="CuringBusy"></div>
+              <div class="client-logo" data-stat="Kritvia AIBOS — Sitelytc's own AI automation platform."><img
+                  class="skeleton" src="https://kritvia.sitelytc.com/favicon.ico?favicon.dfc161a9.ico" alt="Kritvia">
+              </div>
             </div>
+
+            <div class="testimonials">
+              <div class="testimonial">
+                <p>"Launch to first sale took days, not weeks — the site just worked."</p>
+                <span>— E-commerce client</span>
+              </div>
+              <div class="testimonial">
+                <p>"The security audit found things our last agency never even looked for."</p>
+                <span>— Services client</span>
+              </div>
+            </div>
+            <div class="testimonials-note">Sample testimonials — swap in real client quotes</div>
 
             <p class="bio">Engineer first, founder second. Mayank treats every website as a product — fast, hardened,
               and built to be measured, not just admired.</p>
@@ -1082,7 +1344,7 @@
             </div>
 
             <div class="back-cta">
-              <button class="btn btn-primary" id="waBtnBack" type="button">
+              <button class="btn btn-primary rippleable" id="waBtnBack" type="button">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                   <path
                     d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2.05 22l5.25-1.38a9.86 9.86 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.14c-.24.68-1.4 1.33-1.93 1.4-.5.07-1.09.1-1.75-.11-.4-.13-.92-.3-1.58-.59-2.78-1.2-4.6-4-4.74-4.19-.14-.19-1.13-1.5-1.13-2.86 0-1.36.71-2.02.97-2.3.25-.27.55-.34.73-.34h.53c.17 0 .4-.06.62.48.24.57.8 1.98.87 2.13.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.48-.14.14-.28.29-.12.57.16.28.71 1.19 1.53 1.93 1.05.95 1.94 1.24 2.22 1.38.28.14.44.12.6-.07.16-.19.68-.8.86-1.07.18-.28.36-.23.6-.14.24.09 1.55.75 1.82.88.27.14.45.2.51.32.07.12.07.66-.17 1.32z" />
@@ -1106,6 +1368,12 @@
       </svg>
       Flip card
     </button>
+    <button class="external-flip install-btn" id="installBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M12 3v13m0 0l-4-4m4 4l4-4M4 18v2a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-2" />
+      </svg>
+      Add to Home Screen
+    </button>
   </div>
 
   <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -1125,12 +1393,12 @@
       var url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
       window.open(url, "_blank");
     }
-    document.getElementById('waBtn').addEventListener('click', sendWA);
+    document.getElementById('waBtn').addEventListener('click', function () { sendWA(); confirmMorph('waBtn', 'Opening WhatsApp'); });
     document.getElementById('waBtnBack').addEventListener('click', sendWA);
 
-    // ---- Save vCard ----
-    document.getElementById('vcardBtn').addEventListener('click', function () {
-      var vcard = "BEGIN:VCARD\r\n" +
+    // ---- vCard (shared builder) ----
+    function buildVCard() {
+      return "BEGIN:VCARD\r\n" +
         "VERSION:3.0\r\n" +
         "FN:Mayank Thakur\r\n" +
         "N:Thakur;Mayank;;;\r\n" +
@@ -1140,16 +1408,134 @@
         "EMAIL:sitelytc@gmail.com\r\n" +
         "URL:https://www.sitelytc.com\r\n" +
         "ADR;TYPE=WORK:;;New Delhi;;;India\r\n" +
-        "NOTE:Security-native digital studio -- Web Design & Development, AI Automation (Kritvia AIBOS), Cybersecurity Audits (VAPT).\r\n" +
+        "NOTE:Met at Delhi Business Mela -- Security-native digital studio (Web, AI Automation via Kritvia AIBOS, Cybersecurity/VAPT).\r\n" +
         "END:VCARD";
-      var blob = new Blob([vcard], { type: "text/vcard" });
+    }
+
+    // ---- Save vCard ----
+    document.getElementById('vcardBtn').addEventListener('click', function () {
+      var blob = new Blob([buildVCard()], { type: "text/vcard" });
       var link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
       link.download = "Mayank-Thakur-Sitelytc.vcf";
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      showToast("Contact saved");
+      confirmMorph('vcardBtn', 'Contact saved');
+    });
+
+    // ---- Second QR: scan-to-save contact ----
+    document.getElementById('vcardQrImg').src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encodeURIComponent(buildVCard());
+
+    // ---- Share this card ----
+    document.getElementById('shareBtn').addEventListener('click', function () {
+      var shareData = {
+        title: "Mayank Thakur — Sitelytc Digital Media",
+        text: "Here's my digital business card from Sitelytc Digital Media.",
+        url: window.location.href
+      };
+      if (navigator.share) {
+        navigator.share(shareData).catch(function () { });
+      } else if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareData.url).then(function () { showToast('Link copied — share it anywhere'); });
+      } else {
+        showToast('Sharing not supported on this browser');
+      }
+    });
+
+    // ---- Confirmation morph on primary actions ----
+    var morphTimers = {};
+    function confirmMorph(id, label) {
+      var btn = document.getElementById(id);
+      var labelEl = btn.querySelector('.btn-label') || btn;
+      var original = labelEl.textContent;
+      clearTimeout(morphTimers[id]);
+      labelEl.textContent = label + ' ✓';
+      morphTimers[id] = setTimeout(function () { labelEl.textContent = original; }, 1600);
+    }
+
+    // ---- Theme toggle ----
+    var moonPath = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/>';
+    var sunPath = '<path d="M21 12.5A8.5 8.5 0 1 1 11.5 3a6.5 6.5 0 0 0 9.5 9.5z"/>';
+    function toggleTheme() {
+      var isLight = document.body.classList.toggle('light-theme');
+      document.getElementById('themeIconFront').innerHTML = isLight ? sunPath : moonPath;
+      document.getElementById('themeIconBack').innerHTML = isLight ? sunPath : moonPath;
+    }
+    document.getElementById('themeBtnFront').addEventListener('click', toggleTheme);
+    document.getElementById('themeBtnBack').addEventListener('click', toggleTheme);
+
+    // ---- Ripple effect ----
+    document.querySelectorAll('.rippleable').forEach(function (el) {
+      el.addEventListener('click', function (e) {
+        var rect = el.getBoundingClientRect();
+        var ripple = document.createElement('span');
+        var size = Math.max(rect.width, rect.height);
+        ripple.className = 'ripple-el';
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = ((e.clientX || rect.left + rect.width / 2) - rect.left - size / 2) + 'px';
+        ripple.style.top = ((e.clientY || rect.top + rect.height / 2) - rect.top - size / 2) + 'px';
+        el.appendChild(ripple);
+        setTimeout(function () { ripple.remove(); }, 650);
+      });
+    });
+
+    // ---- Image skeleton removal ----
+    document.querySelectorAll('img.skeleton').forEach(function (img) {
+      if (img.complete) { img.classList.remove('skeleton'); }
+      else {
+        img.addEventListener('load', function () { img.classList.remove('skeleton'); });
+        img.addEventListener('error', function () { img.classList.remove('skeleton'); });
+      }
+    });
+
+    // ---- Client logo tap: show case-study blurb ----
+    document.querySelectorAll('.client-logo').forEach(function (logo) {
+      logo.addEventListener('click', function () {
+        var stat = logo.getAttribute('data-stat');
+        if (stat) showToast(stat);
+      });
+    });
+
+    // ---- Badge tap: show what it means ----
+    document.querySelectorAll('.badge').forEach(function (badge) {
+      badge.addEventListener('click', function () {
+        var info = badge.getAttribute('data-info');
+        if (info) showToast(info);
+      });
+    });
+
+    // ---- Swipe to flip (touch) ----
+    (function () {
+      var startX = null;
+      var swipeTarget = document.querySelector('.stage-wrap');
+      swipeTarget.addEventListener('touchstart', function (e) {
+        startX = e.touches[0].clientX;
+      }, { passive: true });
+      swipeTarget.addEventListener('touchend', function (e) {
+        if (startX === null) return;
+        var dx = e.changedTouches[0].clientX - startX;
+        if (Math.abs(dx) > 60) toggleFlip();
+        startX = null;
+      }, { passive: true });
+    })();
+
+    // ---- Install prompt (Add to Home Screen, when supported) ----
+    var deferredInstall = null;
+    var installBtn = document.getElementById('installBtn');
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      deferredInstall = e;
+      installBtn.classList.add('show');
+    });
+    installBtn.addEventListener('click', function () {
+      if (!deferredInstall) return;
+      deferredInstall.prompt();
+      deferredInstall.userChoice.finally(function () {
+        deferredInstall = null;
+        installBtn.classList.remove('show');
+      });
     });
 
     // ---- Flip ----
@@ -1222,7 +1608,8 @@
       toastText.textContent = text;
       toast.classList.add('show');
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 1700);
+      var duration = Math.min(4200, Math.max(1700, text.length * 45));
+      toastTimer = setTimeout(function () { toast.classList.remove('show'); }, duration);
     }
     document.querySelectorAll('.copy-btn').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
