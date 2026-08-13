@@ -34,6 +34,11 @@
       height: 100%;
     }
 
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: var(--cyan) var(--ink);
+    }
+
     body {
       background:
         radial-gradient(650px 420px at 10% -8%, rgba(40, 217, 196, 0.11), transparent 60%),
@@ -41,12 +46,43 @@
         var(--ink);
       color: var(--off-white);
       font-family: 'Inter', sans-serif;
-      min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 28px 16px;
+      justify-content: flex-start;
+      padding: 32px 16px 48px;
       -webkit-font-smoothing: antialiased;
+    }
+
+    /* animated scrollbar */
+    ::-webkit-scrollbar {
+      width: 9px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--ink-2);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 6px;
+      background: linear-gradient(180deg, var(--cyan), var(--amber), var(--cyan));
+      background-size: 100% 200%;
+      animation: scrollFlow 3s linear infinite;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #3FF0DA;
+    }
+
+    @keyframes scrollFlow {
+      0% {
+        background-position: 0 0%;
+      }
+
+      100% {
+        background-position: 0 200%;
+      }
     }
 
     .stage-wrap {
@@ -563,20 +599,58 @@
       text-transform: uppercase;
     }
 
+    /* ---- external flip control ---- */
+    .external-flip {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--off-white);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .external-flip:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      transform: translateY(-1px);
+    }
+
+    .external-flip svg {
+      width: 15px;
+      height: 15px;
+      transition: transform 0.4s ease;
+    }
+
+    .external-flip.spin svg {
+      transform: rotate(180deg);
+    }
+
     /* ---- back face ---- */
-    .back-inner {
-      padding: 26px 24px;
+    .back-content {
+      padding: 22px 24px 26px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
     }
 
-    .back-inner .brand {
-      width: 100%;
-      margin: -26px -24px 0;
-      padding-left: 22px;
-      padding-right: 22px;
+    .qr-logo {
+      margin-top: 4px;
+    }
+
+    .qr-logo img {
+      height: 26px;
+      width: auto;
+      filter: drop-shadow(0 0 10px rgba(40, 217, 196, 0.15));
     }
 
     .qr-wrap {
@@ -642,6 +716,40 @@
     .back-cta {
       margin-top: 22px;
       width: 100%;
+    }
+
+    .clients-label {
+      margin-top: 22px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .clients-grid {
+      margin-top: 12px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    .client-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 8px;
+      height: 44px;
+      border: 1px solid var(--line-strong);
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .client-logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
     }
 
     /* ---- toast ---- */
@@ -889,6 +997,15 @@
               </svg>
               Save to Contacts
             </button>
+            <button class="btn btn-secondary" id="qrBtnFront" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+                <path d="M14 14h3v3h-3zM19 14h2v2h-2zM14 19h2v2h-2zM19 19h2v2h-2z" />
+              </svg>
+              View QR Code
+            </button>
           </div>
 
           <div class="badges">
@@ -903,26 +1020,57 @@
 
         <!-- BACK -->
         <div class="face face-back">
-          <div class="back-inner">
-            <div class="brand">
-              <div class="brand-mark">
-                <img src="https://www.sitelytc.com/_next/image?url=%2Flogo.webp&w=384&q=75" alt="Sitelytc logo">
-              </div>
-              <button class="flip-btn" id="flipBtnBack" type="button" aria-label="Flip card">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                  <path d="M17 2.1l4 4-4 4" />
-                  <path d="M3 12.9V11a4 4 0 0 1 4-4h14" />
-                  <path d="M7 21.9l-4-4 4-4" />
-                  <path d="M21 11.1V13a4 4 0 0 1-4 4H3" />
-                </svg>
-              </button>
+          <div class="brand">
+            <div class="brand-mark">
+              <img src="https://www.sitelytc.com/_next/image?url=%2Flogo.webp&w=384&q=75" alt="Sitelytc logo">
             </div>
+            <button class="flip-btn" id="flipBtnBack" type="button" aria-label="Flip card">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M17 2.1l4 4-4 4" />
+                <path d="M3 12.9V11a4 4 0 0 1 4-4h14" />
+                <path d="M7 21.9l-4-4 4-4" />
+                <path d="M21 11.1V13a4 4 0 0 1-4 4H3" />
+              </svg>
+            </button>
+          </div>
 
+          <div class="back-content">
+            <div class="qr-logo">
+              <img src="https://www.sitelytc.com/_next/image?url=%2Flogo.webp&w=384&q=75" alt="Sitelytc logo">
+            </div>
             <div class="qr-wrap">
               <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fwww.sitelytc.com"
                 alt="QR code to sitelytc.com">
             </div>
             <div class="qr-caption">Scan to visit sitelytc.com</div>
+
+            <div class="clients-label">Trusted by ambitious brands</div>
+            <div class="clients-grid">
+              <div class="client-logo"><img
+                  src="https://www.sitelytc.com/_next/image?url=%2FClient%2FBabyDoc_Shop_Logo.webp&w=256&q=75"
+                  alt="BabyDocShop"></div>
+              <div class="client-logo"><img
+                  src="https://www.sitelytc.com/_next/image?url=%2FClient%2FDealZook_logo.webp&w=256&q=75"
+                  alt="Dealzook"></div>
+              <div class="client-logo"><img
+                  src="https://www.sitelytc.com/_next/image?url=%2FClient%2FPrevot_Associates_logo.webp&w=256&q=75"
+                  alt="PreVot Associates"></div>
+              <div class="client-logo"><img
+                  src="https://www.sitelytc.com/_next/image?url=%2FClient%2FHairDoc_logo.webp&w=256&q=75" alt="HairDoc">
+              </div>
+              <div class="client-logo"><img
+                  src="https://www.sitelytc.com/_next/image?url=%2FClient%2Fmdigitalbayarea_logo.webp&w=256&q=75"
+                  alt="M Digital Bay Area"></div>
+              <div class="client-logo"><img
+                  src="https://www.sitelytc.com/_next/image?url=%2FClient%2FGlobal_corporate_tour_Logo.webp&w=256&q=75"
+                  alt="Global Corporate Tour"></div>
+              <div class="client-logo"><img
+                  src="https://www.sitelytc.com/_next/image?url=%2FClient%2FOzuna_logo.webp&w=256&q=75"
+                  alt="Ozuna Tortilla Factory"></div>
+              <div class="client-logo"><img src="https://curingbusy.com/images/logo.png" alt="CuringBusy"></div>
+              <div class="client-logo"><img src="https://kritvia.sitelytc.com/favicon.ico?favicon.dfc161a9.ico"
+                  alt="Kritvia"></div>
+            </div>
 
             <p class="bio">Engineer first, founder second. Mayank treats every website as a product — fast, hardened,
               and built to be measured, not just admired.</p>
@@ -948,6 +1096,16 @@
 
       </div>
     </div>
+
+    <button class="external-flip" id="flipBtnExternal" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M17 2.1l4 4-4 4" />
+        <path d="M3 12.9V11a4 4 0 0 1 4-4h14" />
+        <path d="M7 21.9l-4-4 4-4" />
+        <path d="M21 11.1V13a4 4 0 0 1-4 4H3" />
+      </svg>
+      Flip card
+    </button>
   </div>
 
   <div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -996,13 +1154,17 @@
 
     // ---- Flip ----
     var flipper = document.getElementById('flipper');
+    var externalFlip = document.getElementById('flipBtnExternal');
     var flipped = false;
     function toggleFlip() {
       flipped = !flipped;
       flipper.classList.toggle('flipped', flipped);
+      externalFlip.classList.toggle('spin', flipped);
     }
     document.getElementById('flipBtnFront').addEventListener('click', toggleFlip);
     document.getElementById('flipBtnBack').addEventListener('click', toggleFlip);
+    document.getElementById('qrBtnFront').addEventListener('click', toggleFlip);
+    externalFlip.addEventListener('click', toggleFlip);
 
     // ---- Tilt (pointer parallax) ----
     var tilt = document.getElementById('tilt');
